@@ -7,7 +7,9 @@ input.onButtonPressed(Button.B, function () {
     count += 1
 })
 let count = 0
-music.playMelody("C5 G B A F A C5 B ", 1000)
+datalogger.deleteLog(datalogger.DeleteType.Fast)
+datalogger.includeTimestamp(FlashLogTimeStampFormat.Milliseconds)
+let tempLog = datalogger.createCV("Temp", input.temperature())
 basic.forever(function () {
     basic.showNumber(count)
     if (count % 3 == 0) {
@@ -15,4 +17,7 @@ basic.forever(function () {
     } else {
         basic.showIcon(IconNames.Square)
     }
+})
+basic.forever(function () {
+    datalogger.log(tempLog)
 })
