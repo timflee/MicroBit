@@ -1,7 +1,5 @@
 def on_button_pressed_a():
-    global count
-    music.play_tone(262, music.beat(BeatFraction.SIXTEENTH))
-    count += -1
+    pass
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_button_pressed_b():
@@ -11,7 +9,9 @@ def on_button_pressed_b():
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 count = 0
-music.play_melody("C5 G B A F A C5 B ", 1000)
+datalogger.delete_log(datalogger.DeleteType.FAST)
+datalogger.include_timestamp(FlashLogTimeStampFormat.MILLISECONDS)
+tempLog = datalogger.create_cv("Temp", input.temperature())
 
 def on_forever():
     basic.show_number(count)
@@ -20,3 +20,7 @@ def on_forever():
     else:
         basic.show_icon(IconNames.SQUARE)
 basic.forever(on_forever)
+
+def on_forever2():
+    pass
+basic.forever(on_forever2)
