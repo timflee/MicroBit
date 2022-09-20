@@ -1,28 +1,27 @@
 input.onButtonPressed(Button.A, function () {
-    music.playTone(262, music.beat(BeatFraction.Whole))
-    countA += 1
+    countB += -5
 })
 input.onButtonPressed(Button.B, function () {
-    music.playTone(523, music.beat(BeatFraction.Sixteenth))
-    countB += 1
+    countB += 5
 })
-let strip = neopixel.create(DigitalPin.P0, 13, NeoPixelMode.RGB)
-strip.setBrightness(50)
-strip.clear()
-strip.showRainbow(1, 360)
-let countB = 0
+let countB = 20
 let countA = 0
+let strip = neopixel.create(DigitalPin.P0, 13, NeoPixelMode.RGB)
+strip.clear()
+strip.setBrightness(countB % 255)
+strip.showRainbow(1, countB % 360)
 datalogger.deleteLog(datalogger.DeleteType.Fast)
 datalogger.includeTimestamp(FlashLogTimeStampFormat.Milliseconds)
 let tempLog = datalogger.createCV("Temp", input.temperature())
 basic.forever(function () {
-    basic.showNumber(countB)
+    strip.setBrightness(countB % 64)
+    strip.showRainbow(1, Math.round(Math.map(countB % 64, 0, 64, 0, 360)))
     if (countB % 3 == 0) {
-        basic.showIcon(IconNames.SmallSquare)
+    	
     } else {
-        basic.showIcon(IconNames.Square)
+    	
     }
 })
 basic.forever(function () {
-    datalogger.log(tempLog)
+	
 })
